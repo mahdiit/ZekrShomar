@@ -1,13 +1,11 @@
 const CACHE_NAME = 'salavat-shomar-v1';
 
 // Files to cache immediately
+// Note: In a production build, source files like .tsx do not exist.
+// We only cache external assets and the main entry point here.
 const urlsToCache = [
   './',
   './index.html',
-  './index.tsx',
-  './App.tsx',
-  './types.ts',
-  './components/CircularProgress.tsx',
   'https://cdn.tailwindcss.com',
   'https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css'
 ];
@@ -16,7 +14,6 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        // Try to cache core files, but don't fail if some external ones fail
         return cache.addAll(urlsToCache).catch(err => {
             console.error('Failed to cache some files:', err);
         });
@@ -62,8 +59,6 @@ self.addEventListener('fetch', (event) => {
             // Clone the response
             const responseToCache = response.clone();
 
-            // Open cache and store the new response
-            // We cache runtime requests to ensure external scripts (like from esm.sh) are saved
             caches.open(CACHE_NAME)
               .then((cache) => {
                 cache.put(event.request, responseToCache);

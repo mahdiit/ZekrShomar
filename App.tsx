@@ -25,7 +25,8 @@ const themes = {
     accent: 'bg-amber-500',
     accentHover: 'hover:bg-amber-600',
     modalBg: 'bg-slate-800',
-    border: 'border-amber-500/20'
+    border: 'border-amber-500/20',
+    glowColor: 'bg-amber-500/20'
   },
   emerald: {
     id: 'emerald',
@@ -43,7 +44,8 @@ const themes = {
     accent: 'bg-emerald-600',
     accentHover: 'hover:bg-emerald-700',
     modalBg: 'bg-white',
-    border: 'border-emerald-200'
+    border: 'border-emerald-200',
+    glowColor: 'bg-emerald-900/5'
   },
   blue: {
     id: 'blue',
@@ -61,7 +63,8 @@ const themes = {
     accent: 'bg-blue-600',
     accentHover: 'hover:bg-blue-700',
     modalBg: 'bg-white',
-    border: 'border-blue-200'
+    border: 'border-blue-200',
+    glowColor: 'bg-blue-500/10'
   }
 };
 
@@ -263,13 +266,16 @@ function App() {
                       {/* LCD Shadow/Glare */}
                       <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black/5 to-transparent pointer-events-none"></div>
                       
+                      {/* LCD Flicker/Glow Effect */}
+                      <div className={`absolute inset-0 pointer-events-none animate-lcd-flicker mix-blend-hard-light ${t.glowColor}`}></div>
+
                       {/* Digits */}
-                      <span className={`text-6xl font-bold tracking-widest drop-shadow-sm ${t.deviceScreenText}`} style={{ fontFamily: 'monospace' }}>
+                      <span className={`text-6xl font-bold tracking-widest drop-shadow-sm ${t.deviceScreenText} relative z-10`} style={{ fontFamily: 'monospace' }}>
                          {count.toString().padStart(4, '0').replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[parseInt(d)])}
                       </span>
                       
                       {/* Small Target Info inside LCD */}
-                      <div className="absolute bottom-1 right-2 flex items-center gap-1 opacity-60">
+                      <div className="absolute bottom-1 right-2 flex items-center gap-1 opacity-60 z-10">
                          <span className={`text-[10px] ${t.deviceScreenText}`}>TARGET</span>
                          <span className={`text-xs font-bold ${t.deviceScreenText}`}>{target}</span>
                       </div>
@@ -278,8 +284,8 @@ function App() {
 
              {/* Brand/Label Area above buttons */}
              <div className="absolute top-[160px] left-[40px] right-[40px] flex justify-between px-1 pointer-events-none z-20">
-                 <span className="text-[10px] font-bold text-white/50 tracking-wider drop-shadow-md">تنظیمات</span>
                  <span className="text-[10px] font-bold text-white/50 tracking-wider drop-shadow-md">ریست</span>
+                 <span className="text-[10px] font-bold text-white/50 tracking-wider drop-shadow-md">تنظیمات</span>
              </div>
 
              {/* Small Left Button (Reset) */}
