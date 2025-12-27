@@ -10,7 +10,7 @@
     
     <title>ذکر شمار</title>
     
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/4358/4358767.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,7 +47,7 @@
         overscroll-behavior-y: contain; /* Prevent pull-to-refresh on mobile */
       }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.3",
@@ -66,7 +66,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
+          navigator.serviceWorker.register('sw.js')
             .then((registration) => {
               console.log('ServiceWorker registration successful');
             }, (err) => {
